@@ -179,7 +179,7 @@ $sp = new Italia\Spid\Sp($settings, null, $autoconfiguration = false);
 
 ```php
 // shortname of IdP, same as the name of corresponding IdP metadata file, without .xml
-$idpName = 'spid-saml-check';
+$idpName = 'spid-demo';
 // index of assertion consumer service as per the SP metadata (sp_assertionconsumerservice in settings array)
 $assertId = 0;
 // index of attribute consuming service as per the SP metadata (sp_attributeconsumingservice in settings array)
@@ -247,11 +247,11 @@ To try it out:
 
 4. Serve the `example` dir from your preferred webserver
 
-5. Visit https://sp.example.com/metadata to get the SP metadata, then copy these over to the IdP and register the SP with the IdP
+5. Get the SP metadata (ex. https://sp.example.com/metadata), then copy these over to the IdP and register the SP with the IdP
 
-6. Visit https://idp.example.com/metadata to get the IdP metadata, then save it as `example/idp_metadata/spid-saml-check.xml` to register the IdP with the SP
+6. Get the IdP metadata (ex. https://idp.example.com/demo/metadata), then save it as `example/idp_metadata/spid-demo.xml` to register the IdP with the SP
 
-7. Visit: https://sp.example.com and click `login`.
+7. Visit https://sp.example.com and click `login`.
 
 #### Demo application
 
