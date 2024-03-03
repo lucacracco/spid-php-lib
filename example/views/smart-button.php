@@ -46,14 +46,14 @@ $mapping = $sp->getIdpList();
             }
             ?>
         ],
-        // Il campo sarebbe opzionale, ma anche se il mapping contiene spid-saml-check, la libreria smart-button sembra
+        // Il campo sarebbe opzionale, ma anche se il mapping contiene spid-demo, la libreria smart-button sembra
         // ignorare gli IdP non "ufficiali". extraProviders è quindi obbligatorio se vogliamo usare spid-saml-check
         extraProviders: [
             {
                 "protocols": ["SAML"],
-                "entityName": "SPID SAML Check",
-                "logo": "spid-idp-spidsamlcheck.png",
-                "entityID": "<?php echo $mapping['spid-saml-check'] ?>",
+                "entityName": "SPID Demo",
+                "logo": "spid-idp-demo.png",
+                "entityID": "<?php echo $mapping['spid-demo'] ?>",
                 "active": true
             },
         ],
