@@ -52,10 +52,10 @@
         li.className = 'spid-idp-button-link';
         li.setAttributeNode(att);
         if (element.id.indexOf('post') !== -1) {
-          li.innerHTML = `<button class="idp-button-idp-logo" name="${data['organization_name']}" type="submit"><span class="spid-sr-only">${data['organization_name']}</span><img class="spid-idp-button-logo" src="${data['logo_uri']}" alt="${data['organization_name']}" /></button></li>`
+          li.innerHTML = `<button class="idp-button-idp-logo" name="selected_idp" value="${data['entity_id']}" type="submit"><span class="spid-sr-only">${data['organization_name']}</span><img class="spid-idp-button-logo" src="${data['logo_uri']}" alt="${data['organization_name']}" /></button></li>`
         }
         if (element.id.indexOf('get') !== -1) {
-          li.innerHTML = `<a href="/login/${data['entity_id']}"><span class="spid-sr-only">${data['organization_name']}</span><img src="${data['logo_uri']}" alt="${data['organization_name']}" /></a>`
+          li.innerHTML = `<a href="/login?selected_idp=${data['entity_id']}"><span class="spid-sr-only">${data['organization_name']}</span><img src="${data['logo_uri']}" alt="${data['organization_name']}" /></a>`
         }
         element.prepend(li)
       }
@@ -73,7 +73,6 @@
 <body>
 <div>
     <h2>Metodo GET</h2>
-    <p><b>Non ancora funzionante; da aggiornare il file `login.php`</b></p>
     <a href="#" class="italia-it-button italia-it-button-size-xl button-spid"
        spid-idp-button="#spid-idp-button-xlarge-get" aria-haspopup="true"
        aria-expanded="false">
