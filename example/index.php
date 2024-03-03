@@ -48,6 +48,10 @@ switch ($request_uri[0]) {
     case '/smart-button':
         require './views/smart-button.php';
         break;
+    // Login SPID Sp Access Button
+    case '/spid-sp-access-button':
+        require './views/spid-sp-access-button.php';
+        break;
     // Login page
     case '/login':
         require './views/login.php';
@@ -55,10 +59,6 @@ switch ($request_uri[0]) {
     // Login POST page
     case '/login-post':
         require './views/login_post.php';
-        break;
-    // Login Smart Button page
-    case '/smart-button':
-        require './views/smart_button.php';
         break;
     // Metadata page
     case '/metadata':
