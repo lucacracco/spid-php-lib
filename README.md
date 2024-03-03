@@ -63,9 +63,7 @@ Table of Contents
 
 ## Getting Started
 
-Tested on: amd64 Debian 9.5 (stretch, current stable) with PHP 7.0.
-
-Supports PHP 7.0, 7.1 and 7.2.
+Supports PHP 8.1, 8.2 and 8.3.
 
 ### Prerequisites
 
@@ -76,7 +74,7 @@ sudo apt install composer make openssl php-curl php-zip php-xml
 ### Configuring and Installing
 
 
-**NOTE**: during testing, please use the test Identity Provider [spid-testenv2](https://github.com/italia/spid-testenv2).
+**NOTE**: during testing, please use the test Identity Provider [SPID SAML Check](https://github.com/italia/spid-saml-check).
 
 
 1. Install with composer 
@@ -97,11 +95,11 @@ sudo apt install composer make openssl php-curl php-zip php-xml
     php vendor/italia/spid-php-lib/bin/download_idp_metadata.php ./idp_metadata
     ```
 
-    *TEST ENVIRONMENT: If you are using [spid-testenv2](https://github.com/italia/spid-testenv2), manually download the IdP metadata and place it in your `idp_metadata` folder*
+    *TEST ENVIRONMENT: If you are using [SPID SAML Check](https://github.com/italia/spid-saml-check), manually download the [IdP metadata](https://localhost:8443/demo/metadata.xml) and place it in your `idp_metadata` folder*
 
 4. Make your SP known to IdPs: for production follow the guidelines at [https://www.spid.gov.it/come-diventare-fornitore-di-servizi-pubblici-e-privati-con-spid](https://www.spid.gov.it/come-diventare-fornitore-di-servizi-pubblici-e-privati-con-spid)
 
-    *TEST ENVIRONMENT: simply download your Service Provider (SP) metadata and place it in the appropriate folder of the [test environment](https://github.com/italia/spid-testenv2). The test environment must be restarted after every change to the SP metadata.*
+    *TEST ENVIRONMENT: simply download your Service Provider (SP) metadata and place it in the appropriate folder of the [SPID SAML Check](https://github.com/italia/spid-saml-check). The test environment must be restarted after every change to the SP metadata.*
 
 
 
@@ -177,7 +175,7 @@ $sp = new Italia\Spid\Sp($settings, null, $autoconfiguration = false);
 
 ```php
 // shortname of IdP, same as the name of corresponding IdP metadata file, without .xml
-$idpName = 'testenv';
+$idpName = 'spid-saml-check';
 // index of assertion consumer service as per the SP metadata (sp_assertionconsumerservice in settings array)
 $assertId = 0;
 // index of attribute consuming service as per the SP metadata (sp_attributeconsumingservice in settings array)
@@ -236,18 +234,18 @@ To try it out:
 1. Generate a test certificate and key pair with:
 
    ```sh
-   openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -subj "/C=IT/ST=Italy/L=Milan/O=myservice/CN=localhost" -keyout sp.key -out sp.crt
+   openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -subj "/C=IT/ST=Italy/L=Rome/O=myservice/CN=localhost" -keyout sp.key -out sp.crt
    ```
 
 2. Adapt the hostname of the SP changing the `$base` variable in the `example/index.php` file; the browser you'll be testing from must be able to resolve the FQDN (the default is `https://sp.example.com`). Using HTTPS is strongly suggested.
 
-3. Configure and install the test IdP [spid-testenv2](https://github.com/italia/spid-testenv2)
+3. Configure and install the test IdP [SPID SAML Check](https://github.com/italia/spid-saml-check)
 
 4. Serve the `example` dir from your preferred webserver
 
 5. Visit https://sp.example.com/metadata to get the SP metadata, then copy these over to the IdP and register the SP with the IdP
 
-6. Visit https://idp.example.com/metadata to get the IdP metadata, then save it as `example/idp_metadata/testenv.xml` to register the IdP with the SP
+6. Visit https://idp.example.com/metadata to get the IdP metadata, then save it as `example/idp_metadata/spid-saml-check.xml` to register the IdP with the SP
 
 7. Visit: https://sp.example.com and click `login`.
 

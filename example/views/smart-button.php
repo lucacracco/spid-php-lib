@@ -46,14 +46,14 @@ $mapping = $sp->getIdpList();
             }
             ?>
         ],
-        // Il campo sarebbe opzionale, ma anche se il mapping contiene testenv, la libreria smart-button sembra 
-        // ignorare gli IdP non "ufficiali". extraProviders è quindi obbligatorio se vogliamo usare testenv
-        extraProviders: [           
+        // Il campo sarebbe opzionale, ma anche se il mapping contiene spid-saml-check, la libreria smart-button sembra
+        // ignorare gli IdP non "ufficiali". extraProviders è quindi obbligatorio se vogliamo usare spid-saml-check
+        extraProviders: [
             {
                 "protocols": ["SAML"],
-                "entityName": "Testenv",
-                "logo": "spid-idp-testenv2.svg",
-                "entityID": "<?php echo $mapping['testenv'] ?>",
+                "entityName": "SPID SAML Check",
+                "logo": "spid-idp-spidsamlcheck.png",
+                "entityID": "<?php echo $mapping['spid-saml-check'] ?>",
                 "active": true
             },
         ],
