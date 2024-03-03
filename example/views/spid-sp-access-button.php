@@ -18,9 +18,14 @@
         // TODO: use '$mapping = $sp->getIdpList();' when the method return the logo_uri.
         var idps = [
           {
+            "organization_name": "SPID Demo",
+            "entity_id": "spid-demo",
+            "logo_uri": "views/spid-sp-access-button/img/spid-idp-demo.svg"
+          },
+          {
             "organization_name": "SPID SAML Check",
             "entity_id": "spid-saml-check",
-            "logo_uri": "views/spid-sp-access-button/img/spid-idp-spidsamlcheck.png"
+            "logo_uri": "views/spid-sp-access-button/img/spid-idp-saml-check.svg"
           }
         ];
         var spid_elements = document.querySelectorAll('ul[data-spid-not-remote]');
