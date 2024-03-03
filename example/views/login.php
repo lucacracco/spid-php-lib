@@ -1,4 +1,7 @@
 <?php
+if (isset($_GET) && isset($_GET['selected_idp'])) {
+    $idp = $_GET['selected_idp'];
+}
 if (isset($_POST) && isset($_POST['selected_idp'])) {
     $idp = $_POST['selected_idp'];
 }
