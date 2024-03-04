@@ -36,6 +36,8 @@ class Base
         $parameters['RelayState'] = is_null($redirectTo) ? (isset($_SERVER['HTTPS'])
             && $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
             "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}" : $redirectTo;
+        // RelayState MUST not be immediately intelligible.
+        $parameters['RelayState'] = base64_encode(rawurlencode($parameters['RelayState']));
         $parameters['SigAlg'] = 'http://www.w3.org/2001/04/xmldsig-more#rsa-sha256';
         $parameters['Signature'] = SignatureUtils::signUrl(
             $parameters['SAMLRequest'],
@@ -55,7 +57,9 @@ class Base
         $relayState = is_null($redirectTo) ? (isset($_SERVER['HTTPS']) &&
             $_SERVER['HTTPS'] === 'on' ? "https" : "http") .
             "//{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}" : $redirectTo;
-        $relayState = null;
+        // RelayState MUST not be immediately intelligible.
+        $relayState = base64_encode(rawurlencode($relayState));
+
         return <<<HTML
 <html>
     <body onload="javascript:document.forms[0].submit()">
