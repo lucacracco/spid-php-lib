@@ -52,7 +52,7 @@ $mapping = $sp->getIdpList();
             {
                 "protocols": ["SAML"],
                 "entityName": "SPID Demo",
-                "logo": "spid-idp-demo.png",
+                "logo": "spid-idp-demo.svg",
                 "entityID": "<?php echo $mapping['spid-demo'] ?>",
                 "active": true
             },
