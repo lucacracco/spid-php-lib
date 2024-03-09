@@ -1,7 +1,8 @@
 <?php
-require_once(__DIR__ . "/../vendor/autoload.php");
-if (file_exists(__DIR__ . "/config.php")) {
-    require_once(__DIR__ . "/config.php");
+
+require_once(__DIR__."/../vendor/autoload.php");
+if (file_exists(__DIR__."/config.php")) {
+    require_once(__DIR__."/config.php");
 }
 
 ini_set('display_errors', 1);
@@ -14,11 +15,11 @@ $settings = [
     'sp_key_file' => './sp.key',
     'sp_cert_file' => './sp.crt',
     'sp_assertionconsumerservice' => [
-        $base . '/acs'
+        $base.'/acs',
     ],
     'sp_singlelogoutservice' => [
-        [$base . '/slo', "POST"],
-        [$base . '/slo', "REDIRECT"]
+        [$base.'/slo', "POST"],
+        [$base.'/slo', "REDIRECT"],
     ],
     'sp_org_name' => 'test',
     'sp_org_display_name' => 'Test',
@@ -36,8 +37,8 @@ $settings = [
     'idp_metadata_folder' => './idp_metadata/',
     'sp_attributeconsumingservice' => [
         ["name", "familyName", "fiscalNumber", "email"],
-        ["name", "familyName", "fiscalNumber", "email", "spidCode"]
-    ]
+        ["name", "familyName", "fiscalNumber", "email", "spidCode"],
+    ],
 ];
 $sp = new Italia\Spid\Sp($settings);
 
@@ -49,20 +50,8 @@ switch ($request_uri[0]) {
         require './views/home.php';
         break;
     // Login page
-    case '/smart-button':
-        require './views/smart-button.php';
-        break;
-    // Login SPID Sp Access Button
-    case '/spid-sp-access-button':
-        require './views/spid-sp-access-button.php';
-        break;
-    // Login page
     case '/login':
         require './views/login.php';
-        break;
-    // Login POST page
-    case '/login-post':
-        require './views/login_post.php';
         break;
     // Metadata page
     case '/metadata':
@@ -75,10 +64,6 @@ switch ($request_uri[0]) {
     // Logout page
     case '/logout':
         require './views/logout.php';
-        break;
-    // Logout POST page
-    case '/logout-post':
-        require './views/logout_post.php';
         break;
     // Slo page
     case '/slo':
