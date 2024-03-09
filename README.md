@@ -5,8 +5,6 @@
 [![SPID on forum.italia.it](https://img.shields.io/badge/Forum-SPID-blue.svg)](https://forum.italia.it/c/spid)
 [![Build Status](https://travis-ci.org/italia/spid-php-lib.svg?branch=master)](https://travis-ci.org/italia/spid-php-lib)
 
->  **CURRENT VERSION: v0.35**
-
 # spid-php-lib
 PHP package for SPID authentication.
 
@@ -41,7 +39,6 @@ Table of Contents
       - [Performing logout](#performing-logout)
       - [Complete API](#complete-api)
     - [Example](#example)
-      - [Demo application](#demo-application)
   - [Features](#features)
     - [More features](#more-features)
   - [Troubleshooting](#troubleshooting)
@@ -63,7 +60,7 @@ Table of Contents
 
 ## Getting Started
 
-Supports PHP 8.1, 8.2 and 8.3.
+Supports PHP 8.0, 8.1, 8.2 and 8.3.
 
 ### Prerequisites
 
@@ -119,7 +116,7 @@ Generate a settings array following this guideline
 
 ```php
 $settings = array(
-    'sp_entityid' => SP_BASE_URL, // preferred: https protocol, no trailing slash, example: https://sp.example.com/
+    'sp_entityid' => SP_BASE_URL, // preferred: https protocol, no trailing slash, example: https://sp.docker.localhost/
     'sp_key_file' => '/path/to/sp.key',
     'sp_cert_file' => '/path/to/sp.crt',
     'sp_comparison' => 'exact', // one of: "exact", "minimum", "better" or "maximum"
@@ -167,7 +164,7 @@ then initialize the main Sp class
 $sp = new Italia\Spid\Sp($settings);
 ```
 
->*Don't want the library to generate .key and .crt files for you? Then remove the `sp_key_cert_values` key from the `settings` array, or decalre* 
+>*Don't want the library to generate .key and .crt files for you? Then remove the `sp_key_cert_values` key from the `settings` array, or declare* 
 
 ```php
 // $autoconfiguration skips .key/.crt generation if set to false
@@ -229,33 +226,33 @@ The method will redirect to the IdP Single Logout page, or return false if you a
 
 ### Example
 
-A basic demo application is provided in the [example/](example/) directory of this repository.
+A Docker-based demo application is provided in the [example/](example/) directory of this repository.
 
 **/example and /tests folders are NOT provided with the production version from packagist, remember to require the `dev-develop` version or just clone this repository (advised)**
+
+#### Requirements
+
+* Docker
+* Docker Compose
 
 To try it out:
 
 1. Generate a test certificate and key pair with:
 
    ```sh
-   openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -subj "/C=IT/ST=Italy/L=Rome/O=myservice/CN=localhost" -keyout sp.key -out sp.crt
+   openssl req -x509 -nodes -sha256 -days 365 -newkey rsa:2048 -subj "/C=IT/ST=Italy/L=Rome/O=myservice/CN=localhost" -keyout ./sp.key -out ./sp.crt
+   chmod 666 ./sp.key ./sp.crt 
    ```
 
-2. Adapt the hostname of the SP changing the `$base` variable in the `example/index.php` file; the browser you'll be testing from must be able to resolve the FQDN (the default is `https://sp.example.com`). Using HTTPS is strongly suggested.
+2. Build the custom image `docker compose build`, Download the image `docker compose pull`, and run the environment `docker compose up -d`
 
-3. Configure and install the test IdP [SPID SAML Check](https://github.com/italia/spid-saml-check)
+3. Download the dependencies for library `docker compose exec web bash -c "composer install --prefer-dist --no-progress"` 
 
-4. Serve the `example` dir from your preferred webserver
+5. Get the SP metadata (ex. http://sp.docker.localhost/metadata), then copy these over to the IdP and register the SP with the IdP (es. http://idp.docker.localhost/, `validator/validator`)
 
-5. Get the SP metadata (ex. https://sp.example.com/metadata), then copy these over to the IdP and register the SP with the IdP
+6. Get the IdP metadata (ex. http://idp.docker.localhost/demo/metadata.xml), then save it as `example/idp_metadata/spid-demo.xml` to register the IdP with the SP
 
-6. Get the IdP metadata (ex. https://idp.example.com/demo/metadata), then save it as `example/idp_metadata/spid-demo.xml` to register the IdP with the SP
-
-7. Visit https://sp.example.com and click `login`.
-
-#### Demo application
-
-A Docker-based demo application is available at [https://github.com/simevo/spid-php-lib-example](https://github.com/simevo/spid-php-lib-example).
+7. Visit http://sp.docker.localhost and click `login` (which users to use can be found here http://idp.docker.localhost/demo/users).
 
 ## Features
 

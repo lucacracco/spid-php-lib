@@ -1,0 +1,53 @@
+version: '3'
+services:
+
+  reverse-proxy:
+    image: traefik:v2.11
+    command: --api.insecure=true --providers.docker
+    ports:
+      - "80:80"
+      #- "8080:8080"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        PHP_IMAGE_TAG: ${PHP_IMAGE_TAG}
+    container_name: web
+    volumes:
+      - ./..:/var/www/html/
+    labels:
+      - "traefik.http.routers.web.rule=Host(`sp.docker.localhost`)"
+    networks:
+      default:
+        aliases:
+          - "sp.docker.localhost"
+
+  spid_sp_test:
+    container_name: spid_sp_test
+    image: ghcr.io/italia/spid-sp-test
+    entrypoint: tail
+    command: -f /dev/null
+    volumes:
+      - ./..:/var/www/html/
+    depends_on:
+      - web
+
+  spid_saml_check:
+    container_name: spid_saml_check
+    image: italia/spid-saml-check:1.10.4
+    volumes:
+      - ./spid_saml_check/server.json:/spid-saml-check/spid-validator/config/server.json
+      - ./spid_saml_check/idp.json:/spid-saml-check/spid-validator/config/idp.json
+      - ./spid_saml_check/idp_demo.json:/spid-saml-check/spid-validator/config/idp_demo.json
+    depends_on:
+      - web
+    labels:
+      - "traefik.http.routers.spid_saml_check.rule=Host(`idp.docker.localhost`)"
+    networks:
+      default:
+        aliases:
+          - "idp.docker.localhost"

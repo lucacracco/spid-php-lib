@@ -8,7 +8,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
-$base = 'https://sp.example.com';
+$base = 'http://sp.docker.localhost';
 $settings = [
     'sp_entityid' => $base,
     'sp_key_file' => './sp.key',

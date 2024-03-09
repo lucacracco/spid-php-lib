@@ -2,6 +2,10 @@
 .directory
 .vscode
 .DS_Store
+/example/docker-compose.override.yml
+/example/.env
+/example/reports/*
+!/example/reports/.gitkeep
 /example/idp_metadata/*.xml
 /example/sp.crt
 /example/sp.key
