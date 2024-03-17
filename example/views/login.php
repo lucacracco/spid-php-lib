@@ -2,7 +2,7 @@
 
 $method = 'GET';
 $idp = 'spid-demo';
-$level = 2;
+$level = 1;
 
 if (isset($_GET) && isset($_GET['selected_idp'])) {
     $idp = $_GET['selected_idp'];
